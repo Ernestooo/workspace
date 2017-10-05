@@ -1,0 +1,32 @@
+
+public class Player {
+
+	
+	private String name;
+	private double points;
+	private int helpLeft;
+
+	public Player(String name) {
+		this.name = name;
+		points = 0;
+		helpLeft = 3;
+	}
+	
+	public boolean checkHelpLeft(){
+		return helpLeft > 0;
+	}
+
+	public void useHelp() {
+		helpLeft--;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public double getPoints() {
+		return points;
+	}
+
+
+}

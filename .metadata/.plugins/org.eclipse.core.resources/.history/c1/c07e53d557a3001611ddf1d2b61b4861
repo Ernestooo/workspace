@@ -1,0 +1,28 @@
+import java.util.Scanner;
+
+public class Main {
+	private static final String CHECK_MEM_VALUE = "VM";
+	private static final String CHECK_MEM_NAME = "LMT";
+	private static final String CHECK_EXPRESSION_VALUE = "CE";
+	private static final String GIVE_MEM_NAME = "AVM";
+	private static final String HELP = "A";
+	private static final String EXIT = "S";
+	
+	public void processCommand(Scanner in, String option, Calculator calculator1 ){
+		
+	}
+
+	public static void main(String[] args) {
+		Scanner in = new Scanner(System.in);
+		
+		Calculator c = new Calculator("mem1", "mem2");
+		
+		System.out.printf("%.2f\n", c.getMemValueByName("mem1"));
+		System.out.printf("%.2f\n", c.getMemValueByName("mem2"));
+		System.out.printf("%.2f\n", c.binary("+", 5, 0.45));
+		c.lastValueToMem1();
+		
+
+	}
+
+}

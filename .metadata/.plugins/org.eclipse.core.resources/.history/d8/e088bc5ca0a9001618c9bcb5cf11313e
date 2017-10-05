@@ -1,0 +1,141 @@
+import java.util.Scanner;
+
+public class Main {
+	private static final String MEM_VALUE = "VM";
+	private static final String MEM_NAME = "LM";
+	private static final String CALC_EXP = "CE";
+	private static final String LV_MEM = "AVM";
+	private static final String HELP = "A";
+	private static final String EXIT = "S";
+	
+	public static void help() {
+		System.out.println("VM - Consultar o valor da memoria");
+		System.out.println("LM - Indicar o nome das memorias");
+		System.out.println("CE - Calcular o valor duma expressao");
+		System.out.println("AVM - Atribuir ultimo valor calculado a memoria");
+		System.out.println("A - Ajuda");
+		System.out.println("S - Sair");
+		
+	}
+	
+	private static String getCommand(Scanner in) {
+		
+		String option = in.next().toUpperCase();
+		return option;
+	}
+	
+	private static void processCommand(Scanner in, String option, Calculator c){
+		switch (option) {
+		case MEM_VALUE:
+			Main.getMemoriesValues(in, c);
+			break;
+		case MEM_NAME:
+			Main.getMemoriesNames(in, c);
+			break;
+		case CALC_EXP:
+			//Main.calcExpression(in, c);
+			break;
+		case LV_MEM:
+			Main.giveMemoryLV(in, c);
+			break;
+		case HELP:
+			Main.help();
+			break;
+		case EXIT:
+			break;
+		default:
+			System.out.println("Opçao inexistente.");
+			break;
+		}
+	}
+
+	private static void giveMemoryLV(Scanner in, Calculator c) {
+		String name = in.next();
+		name = name.trim();
+		
+		if (name.equalsIgnoreCase(c.getMemoryName1())){
+			c.lastValueToMem1();
+		}
+		else if (name.equalsIgnoreCase(c.getMemoryName2())){
+			c.lastValueToMem2();
+		}
+		else {
+			System.out.println("Memoria nao existente.");
+		}
+	}
+
+//	private static void calcExpression(Scanner in, Calculator c) {
+//		String expression = in.nextLine().trim();
+//			if(c.validExp(expression)){
+//				System.out.printf("resultado: " + "%.2f\n", c.identifyExpression(expression));
+//		}
+//			else {System.out.println("Expressao mal definida.");}
+//		}
+//		
+//	}
+
+	private static void getMemoriesNames(Scanner in, Calculator c) {
+		if (c.numberOfMems == 0){
+			System.out.println("Calculadora sem memorias.");
+		}
+		else if (c.numberOfMems == 1){
+			System.out.printf(c.getMemoryName1() + ": " + "%.2f\n", c.getMemoryValue1()); 
+			System.out.printf(c.getMemoryName2() + ": " + "%.2f\n", c.getMemoryValue2());
+		}
+		else if (c.numberOfMems == 2){
+			System.out.printf(c.getMemoryName1() + ": " + "%.2f\n", c.getMemoryValue1()); 
+			System.out.printf(c.getMemoryName2() + ": " + "%.2f\n", c.getMemoryValue2());
+		}
+				
+	}
+
+	private static void getMemoriesValues(Scanner in, Calculator c) {
+		String name = in.next();
+		if (name.equals(c.getMemoryName1())){
+			System.out.printf(c.getMemoryName1() + ": %.2f\n", c.getMemoryValue1());
+		}
+		else if (name.equals(c.getMemoryName2())){
+			System.out.printf(c.getMemoryName2() + ": %.2f\n", c.getMemoryValue2());
+		}
+		else {
+			System.out.println("Memoria nao existente.");
+		}
+	}
+
+	public static void main(String[] args) {
+		
+		Scanner in = new Scanner(System.in);
+		
+		Calculator c = new Calculator();
+		
+		String memoryN = in.nextLine().trim();
+		
+		if (memoryN.contains(" ")) {
+			String memory1 = memoryN.substring(0, memoryN.indexOf(" "));
+			String memory2 = memoryN.substring(memoryN.lastIndexOf(" ") + 1, memoryN.length());
+			if (memory1.equalsIgnoreCase(memory2)){
+				c = new Calculator(memory1, null);
+			}
+			else if(!memoryN.contains(" ")){
+				c = new Calculator(memory1, null);
+			}
+			else 
+				c = new Calculator(memory1, memory2);
+		}
+		else if (memoryN.isEmpty()) {
+			c = new Calculator(null, null);
+		}
+		
+		
+		String option = getCommand(in).toUpperCase();
+		while (!option.equalsIgnoreCase(EXIT)) {
+			Main.processCommand(in, option, c);
+            option = Main.getCommand(in);
+		
+		}
+		in.close();
+		}
+		
+	
+}
+

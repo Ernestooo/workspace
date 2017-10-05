@@ -1,0 +1,49 @@
+package rebelwars;
+
+import characters.*;
+import iterator.*;
+
+public interface RebelWars {
+	
+	void addRebel(String name, int row, int col);
+	
+	int getMapRows();
+	
+	int getMapCols();
+	
+	void moveRebel(Rebel r, Movements move);
+	
+	int searchIndex(Characters c);
+	
+	boolean hasRebel(Rebel r);
+	
+	boolean hasRebels();
+	
+	boolean hasCharacters();
+	
+	boolean isWall(int row, int col);
+	
+	void uploadMap(int row, int col, char[][] map);
+	
+	boolean hasMap();
+	
+	boolean isEmpty(int r, int c);
+	
+	MapIterator mapIterator();
+	
+	CharactersIterator characterIterator();
+
+	//NEW
+	
+	void reset();
+	
+	void start();
+	
+	String getStatus();
+	
+	int getPoints();
+	
+	int getTimer();
+	
+	int getCountRebels();
+}

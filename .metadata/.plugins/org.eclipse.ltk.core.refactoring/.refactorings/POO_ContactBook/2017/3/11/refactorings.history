@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Move 2 elements to &apos;POO_ContactBook/src/cbook&apos;&#x0D;&#x0A;- Original project: &apos;POO_ContactBook&apos;&#x0D;&#x0A;- Destination element: &apos;POO_ContactBook/src/cbook&apos;&#x0D;&#x0A;- Original elements:&#x0D;&#x0A;     ContactBook.java&#x0D;&#x0A;     Contact.java&#x0D;&#x0A;- Update references to refactored element" description="Move compilation units" destination="/src&lt;cbook" element1="/src&lt;{ContactBook.java" element2="/src&lt;{Contact.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.move" policy="org.eclipse.jdt.ui.moveResources" qualified="false" references="true" stamp="1489525712974" units="2" version="1.0"/>
+</session>

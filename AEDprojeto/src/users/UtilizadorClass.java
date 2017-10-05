@@ -1,0 +1,61 @@
+package users;
+
+public class UtilizadorClass implements Utilizador {
+
+	private String nome;
+	private String nacionalidade;
+	private String morada;
+	private String email;
+	private String numTelf;
+	private String userID;
+//	private boolean viajante;
+//	private int counter;
+	
+	public UtilizadorClass(String userID, String nome, String nacionalidade, String morada, String email, String numTelf){
+		this.nome = nome;
+		this.nacionalidade = nacionalidade;
+		this.morada = morada;
+		this.email = email;
+		this.numTelf = numTelf;
+		this.userID = userID;
+//		viajante = false;
+//		counter++;
+	}
+	
+	@Override
+	public String getName() {
+		// TODO Auto-generated method stub
+		return nome;
+	}
+
+	@Override
+	public String getAdress() {
+		// TODO Auto-generated method stub
+		return morada;
+	}
+
+	@Override
+	public String getNacionality() {
+		// TODO Auto-generated method stub
+		return nacionalidade;
+	}
+
+	@Override
+	public String getPhoneNumber() {
+		// TODO Auto-generated method stub
+		return numTelf;
+	}
+
+	@Override
+	public String getEmail() {
+		// TODO Auto-generated method stub
+		return email;
+	}
+
+	@Override
+	public String getUserID() {
+		// TODO Auto-generated method stub
+		return userID;
+	}
+
+}

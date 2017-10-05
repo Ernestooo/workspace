@@ -1,0 +1,6 @@
+1495450113422	Rename package 'Tickets'
+1495452178230	Delete element
+1495541529555	Rename type 'ClientUserCLass'
+1495543846759	Rename type 'ArtisBandClass'
+1495555569652	Rename package 'findConcertTicket'
+1495558395060	Extract constant 'ADMIN'

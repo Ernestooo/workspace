@@ -1,0 +1,52 @@
+
+
+public class PlayerDatabase {
+
+	private static final int DEFAULT_SIZE = 20;
+	private static final int GROWTH = 2;
+
+	private Player[] players;
+	private int playerCounter;
+
+	public PlayerDatabase(){
+		
+		playerCounter = 0;
+		players = new Player[DEFAULT_SIZE];
+		
+	}
+	
+	public void addPlayer(String name) {
+		if (playerCounter == players.length)
+			resize();
+		
+		Player p = new Player(name);
+
+		for (int i = 0; i < playerCounter; i++) {
+			if (players[i].getPoints() < p.getPoints()) {
+				shiftUp(i);
+				players[i] = p;
+			}
+		}
+		playerCounter++;
+	}
+	
+	private void shiftUp(int position){
+		for(int i = position;i < playerCounter; i++){		
+		players[i+1] = players[i];
+		}
+	}
+
+	private void resize() {
+		Player[] expancion = new Player[GROWTH * players.length];
+		for (int i = 0; i < players.length; i++) {
+			expancion[i] = players[i];
+		}
+		players = expancion;
+
+	}
+	
+	public Player getPlayer(int position){
+		return players[position];
+	}
+
+}

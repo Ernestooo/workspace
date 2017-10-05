@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="java.lang.System"/>
+<fullyQualifiedTypeName name="java.io.PrintWriter"/>
+<fullyQualifiedTypeName name="java.io.FileNotFoundException"/>
+<fullyQualifiedTypeName name="java.io.IOException"/>
+<fullyQualifiedTypeName name="socialnetwork.SocialNetwork"/>
+<fullyQualifiedTypeName name="user.CloudSharing"/>
+<fullyQualifiedTypeName name="user.User"/>
+<fullyQualifiedTypeName name="user.BasicUser"/>
+<fullyQualifiedTypeName name="user.CloudSharingClass"/>
+<fullyQualifiedTypeName name="user.AbstractUser"/>
+<fullyQualifiedTypeName name="user.File"/>
+<fullyQualifiedTypeName name="user.FileClass"/>
+<fullyQualifiedTypeName name="characters.Stormtrooper"/>
+<fullyQualifiedTypeName name="java.util.LinkedList"/>
+<fullyQualifiedTypeName name="java.util.Map"/>
+<fullyQualifiedTypeName name="java.util.Iterator"/>
+<fullyQualifiedTypeName name="tickets.Ticket"/>
+<fullyQualifiedTypeName name="tickets.ConcertTicket"/>
+<fullyQualifiedTypeName name="java.util.Comparator"/>
+</qualifiedTypeNameHistroy>

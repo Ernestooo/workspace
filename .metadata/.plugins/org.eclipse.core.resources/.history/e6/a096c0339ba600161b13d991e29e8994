@@ -1,0 +1,18 @@
+package abs;
+
+public class main {
+
+	public static void main(String[] args) {
+		String filmSeries = "Tin Tin 201";
+		 int inc = 0;
+		 boolean cond = true;
+		 filmSeries = filmSeries + inc++;
+		 if (inc >= 1 || !cond){
+			 inc--;
+		 	filmSeries = filmSeries + inc;} 
+		 System.out.println(filmSeries);
+		 System.out.println(inc);
+
+	}
+
+}

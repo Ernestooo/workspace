@@ -1,0 +1,15 @@
+package rebelwars;
+
+public interface RebelWars {
+	
+	public void addRebel(int row, int col);
+	
+	public boolean hasRebels();
+	
+	public boolean isWall(int row, int col);
+	
+	public void uploadMap(int row, int col, char[][] map);
+	
+	public boolean hasMap();
+
+}

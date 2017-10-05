@@ -1,0 +1,5 @@
+package map;
+
+public abstract class LocationAbstractClass implements Location{
+
+}

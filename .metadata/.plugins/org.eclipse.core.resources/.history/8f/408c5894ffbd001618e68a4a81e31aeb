@@ -1,0 +1,121 @@
+
+public class Contest {
+
+	
+//	public boolean canPlay (){
+//		
+//	}
+	
+	private static final int DEFAULT_SIZE = 20;
+	private static final int GROWTH = 2;
+
+	private Player[] players;
+	private int playerCounter;
+
+	public Contest(){
+		
+		playerCounter = 0;
+		players = new Player[DEFAULT_SIZE];
+		
+	}
+	
+	public void addPlayer(String name) {
+		if (playerCounter == players.length)
+			resize();
+		
+		Player p = new Player(name);
+
+		for (int i = 0; i < playerCounter; i++) {
+			if (players[i].getPoints() < p.getPoints()) {
+				shiftUp(i);
+				players[i] = p;
+			}
+		}
+		playerCounter++;
+	}
+	
+	private void shiftUp(int position){
+		for(int i = position;i < playerCounter; i++){		
+		players[i+1] = players[i];
+		}
+	}
+
+	private void resize() {
+		Player[] expancion = new Player[GROWTH * players.length];
+		for (int i = 0; i < players.length; i++) {
+			expancion[i] = players[i];
+		}
+		players = expancion;
+
+	}
+	
+	public Player getPlayer(int position){
+		return players[position];
+	}
+
+}
+
+
+//	public void addQuestion(String question, String option1, String option2, String option3, String option4,
+//			String answer) {
+//		if (questionCounter == questions.length)
+//			resizeQuestions();
+//		Question c = new Question(question, option1, option2, option3, option4, answer);
+//		questions[questionCounter] = c;
+//		questionCounter++;
+//	}
+//	
+//	private void resizeQuestions() {
+//		Question[] expancion = new Question[GROWTH * questions.length];
+//		for (int i = 0; i < questions.length; i++) {
+//			expancion[i] = questions[i];
+//		}
+//		questions = expancion;
+//
+//	}
+//
+////	public String showQuestion() {
+////
+////		if ((questionsShown) == questionCounter)
+////			questionsShown = 0;
+////
+////		return printQuestion(questionsShown++);
+////	}
+//
+//	public String printQuestion() {
+//
+//		if ((questionsShown) == questionCounter)
+//			questionsShown = 0;
+//		
+//		questionsShown++;
+//		
+//		String question = questions[questionsShown].getQuestion();
+//		String option1 = questions[questionsShown].getOption1();
+//		String option2 = questions[questionsShown].getOption2();
+//		String option3 = questions[questionsShown].getOption3();
+//		String option4 = questions[questionsShown].getOption4();
+//		
+//		
+//
+//		//switch (questions[position].getAnswer()) {
+//		
+//
+//		return question + "\n" + option1 + "\n" + option2 + "\n" + option3 + "\n" + option4;
+//	}
+//
+//	public int getNumberOfQuestions() {
+//		return questionCounter;
+//	}
+//
+//	public void initializeIterator() {
+//		currentQuestion = 0;
+//	}
+//
+//	public boolean hasNext() {
+//		return currentQuestion < questionCounter;
+//	}
+//
+//	public Question next() {
+//		return questions[currentQuestion++];
+//	}
+

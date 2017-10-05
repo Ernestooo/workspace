@@ -1,0 +1,209 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+// import java.io.PrintWriter;
+import java.util.Scanner;
+import java.util.jar.Attributes.Name;
+
+public class Main {
+	
+	private static final String YES = "S";
+	private static final String NO = "N";
+	private static final String ANSWER_A = "A";
+	private static final String ANSWER_B = "B";
+	private static final String ANSWER_C = "C";
+	private static final String ANSWER_D = "D";
+	private static final String HELP = "H";
+	
+	private static final String ASK_NAME = "Qual e o seu name?";
+	private static final String GREETINGS = "Benvindo a Grande Questao. Deseja jogar? (S/N)";
+	private static final String WELCOME_1 = "Benvindo, ";
+	private static final String DOT = ".";
+	private static final String QUESTIONS_TO_SEE = "Quantas perguntas quer ver?";//
+	private static final String GOODBYE = "Que pena! Entao adeus.";
+	private static final String INTRO_QUESTION = "Por ";
+	private static final String OUTRO_QUESTION = " euros, responda a seguinte questao:";
+	private static final String HELP_OPTION = "H. Nem imagino, quero gastar uma ajuda.";
+	private static final String CONTINUE_HELP_INTRO = "... Era mesmo facil. Resposta ";
+	private static final String CONTINUE_HELP_OUTRO = ". Deseja continuar?";
+	private static final String CONTINUE_CORRECT_INTRO = "Muito bem, ";
+	private static final String CONTINUE_CORRECT_BODY = " Ganhou ";
+	private static final String CONTINUE_CORRECT_OUTRO = " euros. Deseja continuar? (S/N)";
+	private static final String END_CORRECT_INTRO = "Parabens, ";
+	private static final String WRONG_INTRO = "Santa ignorancia, ";
+	private static final String WRONG_OUTRO = "! Ficou com 0 euros.";
+	private static final String ALL_OR_NOTHING = "Quer arriscar tudo ou nada, Joaquim? (S/N)";
+	private static final String SHOW_RANKING = " Passou a ocupar a posicao 1 na nossa tabela de recordes.\nVeja bem como ela ficou:\nRanking";
+	
+	private static final String OUTROS_QUESTION = "euros, responda a seguinte questao:";
+	private static final String OUTROSS_QUESTION = "";
+
+
+	
+	
+	public static final String FILE = "perguntas.txt";
+	
+	public static String wantsToPlay;
+	public static String choice;
+	public static String name;
+	public static String answer;
+	public static String answerString;
+	public static Contest ct;
+	public static PlayerDatabase pDB;
+	public static void main(String[] args) {
+		wantsToPlay = "";
+		name = "";
+		
+		Scanner in = new Scanner(System.in);
+		
+		ct = new Contest();
+		pDB = new PlayerDatabase();
+		QuestionDatabase qpDB = new QuestionDatabase();
+		readQuestions(qpDB, FILE);
+		
+		
+		System.out.println(GREETINGS);
+		wantsToPlay = in.nextLine().trim();
+		
+		
+		while (wantsToPlay.equalsIgnoreCase(YES)){
+
+			System.out.println(ASK_NAME);
+			name = in.nextLine().trim();
+			pDB.addPlayer(name);
+			qpDB.initializeIterator();
+			
+			System.out.println(WELCOME_1 + pDB.getPlayer().getName() + DOT);
+
+			while (pDB.canPlay()) {
+				System.out.println(INTRO_QUESTION + ct.getLevelPoints() + OUTRO_QUESTION);
+
+				System.out.println(showQuestion(qpDB, pDB));
+				choice = in.nextLine().trim().toUpperCase();
+				System.out.println(processChoice(in, ct, choice, pDB));
+				if(pDB.canPlay())
+				wantsToPlay = in.nextLine();
+				
+			}
+		//	System.out.println(ct.endPlay());
+			System.out.println(END_CORRECT_INTRO + name + DOT);
+			
+			System.out.println(GREETINGS);
+			wantsToPlay = in.nextLine().trim();
+		}
+		System.out.println(GOODBYE);
+		
+		in.close();
+
+	}
+
+	private static void readQuestions(QuestionDatabase qpDB, String file){
+		try {
+			FileReader read = new FileReader(file);
+			Scanner in = new Scanner(read);
+			while(in.hasNextLine()){
+				Main.addQuestion(qpDB, in);
+			}
+			in.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("No data files to load");
+		} 
+	}
+	
+	public static void addQuestion(QuestionDatabase qpDB, Scanner in){
+
+		String question = in.nextLine();
+		String wantsToPlay1 = in.nextLine();
+		String wantsToPlay2 = in.nextLine();
+		String wantsToPlay3 = in.nextLine();
+		String wantsToPlay4 = in.nextLine();
+		String answer = in.nextLine();
+
+		qpDB.addQuestion(question, wantsToPlay1, wantsToPlay2, wantsToPlay3, wantsToPlay4, answer);
+
+		
+	}
+	
+	private static String showQuestion(QuestionDatabase qpDB, PlayerDatabase pDB) {
+		
+		String help = "";
+		Question q = qpDB.showQuestion();
+		String question = q.getQuestion();
+		String option1 = q.getOption1();
+		String option2 = q.getOption2();
+		String option3 = q.getOption3();
+		String option4 = q.getOption4();
+		
+		switch (q.getAnswer().toUpperCase()){
+			case ANSWER_A:
+				answer = option1;
+				break;
+			case ANSWER_B:
+				answer = option2;
+				break;
+			case ANSWER_C:
+				answer = option3;
+				break;
+			case ANSWER_D:
+				answer = option4;
+				break;
+				
+		}
+		
+		if (pDB.hasHelpLeft())
+			help = "\n" + HELP_OPTION;
+
+		return question + "\n" + option1 + "\n" + option2 + "\n" + option3 + "\n" + option4 + help;
+	}
+	
+	public static String processChoice(Scanner in, Contest ct, String choice, PlayerDatabase pDB) {
+		switch (choice) {
+		case ANSWER_A:
+		case ANSWER_B:
+		case ANSWER_C:
+		case ANSWER_D:
+			return answerQuestion(in, pDB, ct);
+		case HELP:
+			return answerHelp(pDB);
+		default:
+			pDB.canNotPlay();
+			ct.loseGame();
+			return "ARE YOU STUPID? THE OPTIONS ARE 'A','B','C' AND 'D',\nNOT \""+ choice + "\", \nYOU. \nFUCKING. \nRETARDED.\nF U C K\nU U\nC   C\nK     K";
+
+		}
+	}
+	
+	private static String answerQuestion(Scanner in, PlayerDatabase pDB, Contest ct) {
+
+		String result = "";
+		
+		if(choice.equalsIgnoreCase(answer)){
+			result = CONTINUE_CORRECT_INTRO + pDB.getPlayer().getName() + CONTINUE_CORRECT_BODY + ct.getLevelPoints() + CONTINUE_CORRECT_OUTRO;
+			ct.nextLevel();
+		}else{
+			result = WRONG_INTRO + pDB.getPlayer().getName() + WRONG_OUTRO;
+			pDB.canNotPlay();
+			ct.loseGame();
+		}
+		
+		return result;
+	}
+
+	private static String answerHelp(PlayerDatabase pDB) {
+		if(pDB.hasHelpLeft()){
+			pDB.useHelp();
+			return name + ", "+ name +", "+ name + CONTINUE_HELP_INTRO + answer + CONTINUE_HELP_OUTRO;
+		}else{
+			pDB.canNotPlay();
+			return "YOU HAVE THREE, 3 , HELPS, NOT A MILLION! GET YOUR SHIT TOGETHER!";
+		}
+		
+		
+		
+	}
+
+	
+
+	
+
+
+}

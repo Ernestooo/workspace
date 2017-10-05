@@ -1,0 +1,133 @@
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+// import java.io.PrintWriter;
+import java.util.Scanner;
+
+public class Main {
+	
+	private static final String YES = "S";
+	private static final String NO = "N";
+	private static final String ANSWER_A = "A";
+	private static final String ANSWER_B = "B";
+	private static final String ANSWER_C = "C";
+	private static final String ANSWER_D = "D";
+	private static final String HELP = "H";
+	
+	private static final String ASK_NAME = "Qual e o seu nome?";
+	private static final String GREETINGS = "Benvindo a Grande Questao. Deseja jogar? (S/N)";
+	private static final String WELCOME_1 = "Who cares, youre a fagggot, ";
+	private static final String DOT = ".";
+	private static final String QUESTIONS_TO_SEE = "Quantas perguntas quer ver?";//
+	private static final String GOODBYE = "Adeus.";//
+	private static final String INTRO_QUESTION = "Por ";
+	private static final String OUTRO_QUESTION = "euros, responda a seguinte questao:";
+	private static final String CONTINUE_HELP = "... Era mesmo facil. Resposta A. O Nexus. Deseja continuar?";
+	private static final String CONTINUE_CORRECT_INTRO = "Muito bem, ";
+	private static final String CONTINUE_CORRECT_BODY = " Ganhou ";
+	private static final String CONTINUE_CORRECT_OUTRO = " euros. Deseja continuar? (S/N)";
+	private static final String END_CORRECT_INTRO = "Parabens, ";
+	private static final String WRONG_INTRO = "Santa ignorancia, ";
+	private static final String WRONG_BODY = "! Ficou com ";
+	private static final String WRONG_OUTRO = "euros.";
+	private static final String ALL_OR_NOTHING = "Quer arriscar tudo ou nada, Joaquim? (S/N)";
+	private static final String SHOW_RANKING = " Passou a ocupar a posicao 1 na nossa tabela de recordes.\nVeja bem como ela ficou:\nRanking";
+	
+	private static final String OUTROS_QUESTION = "euros, responda a seguinte questao:";
+	private static final String OUTROSS_QUESTION = "";
+
+
+	
+	
+	public static final String FILE = "perguntas.txt";
+	
+	public static String option;
+	public static String nome;
+
+	private static void readContest(QuestionDatabase qDB, String file){
+		try {
+			FileReader read = new FileReader(file);
+			Scanner in = new Scanner(read);
+			while(in.hasNextLine()){
+				Main.addQuestion(qDB, in);
+			}
+			in.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("No data files to load");
+		} 
+	}
+	
+	public static void addQuestion(QuestionDatabase qDB, Scanner in){
+
+		String question = in.nextLine();
+		String option1 = in.nextLine();
+		String option2 = in.nextLine();
+		String option3 = in.nextLine();
+		String option4 = in.nextLine();
+		String answer = in.nextLine();
+
+		qDB.addQuestion(question, option1, option2, option3, option4, answer);
+
+		
+	}
+	
+
+//	private static void processCommand(Scanner in, String option, Contest db) {
+//		switch (option) {
+//		case ANSWER_A:
+//			
+//		case ANSWER_B:
+//			
+//		case ANSWER_C:
+//			
+//		case ANSWER_D:
+//			answerQuestion(option);
+//			break;
+//		case HELP:
+//			help();
+//			break;
+//		default:
+//			System.out.println("uh");
+//			in.nextLine();
+//			break;
+//
+//		}
+//	}
+	
+	public static void main(String[] args) {
+		int i = 0;
+		option = "";
+		nome = "";
+		Scanner in = new Scanner(System.in);
+		Contest db = new Contest();
+		QuestionDatabase qDB = new QuestionDatabase();
+		Main.readContest(qDB, FILE);
+		
+		
+		System.out.println(GREETINGS);
+		option = in.nextLine().trim();
+		
+		while (option.equalsIgnoreCase(YES)){
+
+			System.out.println(ASK_NAME);
+			nome = in.nextLine().trim();
+			System.out.println(WELCOME_1 + nome + DOT);
+			
+			System.out.println(INTRO_QUESTION + " " + OUTRO_QUESTION);
+		
+//			System.out.println(GREETINGS);
+//			option = in.nextLine().trim();
+			
+			
+		}
+	
+		
+
+//			showQuestions(qDB);
+//			
+		
+		in.close();
+
+	}
+
+
+}

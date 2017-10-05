@@ -1,0 +1,135 @@
+package rebelwars;
+
+import characters.*;
+import iterator.*;
+import map.*;
+
+
+public class RebelWarsClass implements RebelWars {
+	
+	private static final int DEFAULT_SIZE = 100;
+	private static final int RESIZE		  = 2;
+	private static final String SETUP = "SETUP", ON = "ON", OVER = "OVER"; 
+	
+	private Characters[] characters;
+	private int countRebels, points, timer;
+	private Map map;
+	private int countCharacters;
+	private String status;
+	
+	public RebelWarsClass(){
+		characters = new Characters[DEFAULT_SIZE];
+		countRebels = 0;
+		map = null;
+		countCharacters = 0;
+		status = SETUP;
+		points = 0;
+		timer = 0;
+	}
+	
+	public void reset(){
+		characters = new Characters[DEFAULT_SIZE];
+		countRebels = 0;
+		map = null;
+		countCharacters = 0;
+		status = SETUP;
+		points = 0;
+		timer = 0;
+	}
+	
+	public void start(){
+		status = ON;
+	}
+	
+	public String getStatus(){
+		return status;
+	}
+	
+	public int getPoints(){
+		return points;
+	}
+	
+	public int getTimer(){
+		return timer;
+	}
+	
+	public int getCountRebels(){
+		return countRebels;
+	}
+	
+	public void addRebel(String name, int row, int col){
+		Rebel r = new RebelClass(name);
+		if(countCharacters == characters.length)
+			resize();
+		r.arrive(row, col);
+		characters[countCharacters++] = r;
+		countRebels++;
+	}
+	
+	private void resize(){
+		Characters[] tmp = new Characters[DEFAULT_SIZE*RESIZE];
+		for(int i = 0; i < countCharacters; i++){
+			tmp[i] = characters[i];
+		}
+		characters = tmp;
+	}
+	
+	public boolean isWall(int row, int col){
+		return map.getLocation(row, col).equals(Wall.WALL);
+	}
+	
+	public int getMapRows(){
+		return map.getRows();
+	}
+	
+	public int getMapCols(){
+		return map.getColumns();
+	}
+	
+	public void moveRebel(Rebel r, Movements move){
+		((Rebel)characters[searchIndex(r)]).move(move);
+	}
+	
+	
+	public boolean isEmpty(int r, int c){
+		return map.isEmpty(r, c);
+	}
+	
+	public int searchIndex(Characters c){
+		int index = -1;
+		for(int i = 0; i < countCharacters; i++){
+			if(characters[i].equals(c))
+				index = i;
+		}
+		return index;
+	}
+	
+	public boolean hasRebel(Rebel r){
+		return searchIndex(r) > 0;
+	}
+	
+	public boolean hasRebels(){
+		return countRebels > 0;
+	}
+	
+	public boolean hasCharacters(){
+		return countCharacters > 0;
+	}
+	
+	public void uploadMap(int row, int col, char[][] map){
+		this.map = new MapClass(map, row, col);
+	}
+	
+	public boolean hasMap(){
+		return map != null;
+	}
+	
+	public MapIterator mapIterator(){
+		return new MapIteratorClass(map);
+	}
+	
+	public CharactersIterator characterIterator(){
+		return (CharactersIterator)  new CharactersIteratorClass(countCharacters, characters);
+	}
+
+}

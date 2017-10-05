@@ -1,0 +1,14 @@
+1494858240090	Rename type 'Cart'
+1494858251135	Rename type 'Items'
+1494970501859	Move compilation unit
+1494970538241	Rename type 'Items'
+1494970560412	Rename type 'ItemsClass'
+1494971053252	Delete element
+1495014062734	Extract constant 'MESSAGE'
+1495014158174	Extract constant 'MESSAGE'
+1495014223301	Extract constant 'MESSAGE'
+1495014264246	Extract constant 'MESSAGE'
+1495014295727	Extract constant 'MESSAGE'
+1495014324551	Extract constant 'MESSAGE'
+1495055777755	Rename package 'Supermarket'
+1495055792453	Rename package 'Exceptions'

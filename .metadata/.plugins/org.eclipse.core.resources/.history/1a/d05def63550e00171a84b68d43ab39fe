@@ -1,0 +1,50 @@
+package socialnetwork;
+
+public class PersonClass implements Person {
+	
+	private String name, status;
+	private int counter, current;
+	private Person[] friends;
+	
+	private static final int DEFAULT = 50;
+	
+	public PersonClass(String name, String status){
+		this.name = name;
+		this.status = status;
+		counter = 0;
+		current = -1;
+		friends = new Person[DEFAULT];
+	}
+	
+	@Override
+	public String getName() {
+		return name;
+	}
+
+	@Override
+	public String getStatus() {
+		return status;
+	}
+
+	@Override
+	public void setStatus(String status) {
+		this.status = status;
+		
+	}
+	
+	@Override
+	public void addFriend(Person otherPerson){
+		friends[current++] = otherPerson;
+		counter++;
+	}
+	
+	@Override
+	public int numberOfFriends() {
+		return counter;
+	}
+
+	@Override
+	public boolean equals(Person otherPerson) {
+		return name.equals(otherPerson.getName());	
+	}
+}
